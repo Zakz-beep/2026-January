@@ -46,7 +46,7 @@ export function LayoutTextFlipDemo() {
           View Projects
         </button>
         <button className="h-12 w-48 rounded-xl bg-white text-sm font-semibold text-black border border-black transition-all hover:bg-gray-50 dark:bg-transparent dark:border-white dark:text-white">
-         Join My Community
+         <a href="https://whatsapp.com/channel/0029Vb7K7MDH5JLvILgdcn23">Join My Community</a>
         </button>
       </div>
       
