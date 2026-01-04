@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
-import { submitComment } from "@/app/actions/comment"; // Import action
+import { submitComment } from "@/app/actions/comment";
 import { Button } from "./ui/stateful-button";
 
 export function CommentFormDemo() {
@@ -13,6 +13,7 @@ export function CommentFormDemo() {
   const [hover, setHover] = useState(0);
   const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+
   async function handleFormSubmit(formData: FormData) {
     setLoading(true);
     try {
@@ -28,7 +29,7 @@ export function CommentFormDemo() {
       // 3. Cek hasil dari result (karena server action biasanya me-return object, bukan throw)
       if (!result?.success) {
         // Jika database gagal, lempar error agar animasi centang di tombol tidak jalan
-        throw new Error(result?.error || "Gagal menyimpan ke database");
+        throw new Error("Gagal menyimpan ke database");
       }
   
       // 4. Jika berhasil
@@ -39,9 +40,10 @@ export function CommentFormDemo() {
       // sepenuhnya mengandalkan animasi centang pada tombol
       console.log("Komentar berhasil dikirim!");
   
-    } catch (error: any) {
+    } catch (error) {
       // Tampilkan pesan error ke user
-      alert(error.message || "Gagal mengirim komentar");
+      const errorMessage = error instanceof Error ? error.message : "Gagal mengirim komentar";
+      alert(errorMessage);
       
       // 5. Lempar kembali error-nya agar Button menjalankan 'animateError'
       throw error; 
@@ -108,23 +110,23 @@ export function CommentFormDemo() {
         </LabelInputContainer>
 
         <Button
-  type="button" // Gunakan type button agar tidak memicu reload halaman otomatis
-  disabled={loading || rating === 0}
-  className="w-full h-12 bg-black dark:bg-zinc-800"
-  onClick={async () => {
-    // 1. Ambil data dari form secara manual menggunakan FormData
-    if (formRef.current) {
-      const formData = new FormData(formRef.current);
-      
-      // 2. Jalankan fungsi submit dan tunggu hingga selesai (await)
-      // Ini penting agar animasi sukses/centang pada Button muncul tepat waktu
-      await handleFormSubmit(formData);
-    }
-  }}
->
-  Send Comments
-  <BottomGradient />
-</Button>
+          type="button" // Gunakan type button agar tidak memicu reload halaman otomatis
+          disabled={loading || rating === 0}
+          className="w-full h-12 bg-black dark:bg-zinc-800"
+          onClick={async () => {
+            // 1. Ambil data dari form secara manual menggunakan FormData
+            if (formRef.current) {
+              const formData = new FormData(formRef.current);
+              
+              // 2. Jalankan fungsi submit dan tunggu hingga selesai (await)
+              // Ini penting agar animasi sukses/centang pada Button muncul tepat waktu
+              await handleFormSubmit(formData);
+            }
+          }}
+        >
+          Send Comments
+          <BottomGradient />
+        </Button>
       </form>
     </div>
   );

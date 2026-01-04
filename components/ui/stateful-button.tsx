@@ -1,10 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
-import { motion, useAnimate } from "motion/react";
+import { HTMLMotionProps, motion, useAnimate } from "motion/react";
 import { XCircle } from "lucide-react"; // Tambahkan icon error
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLMotionProps<"button"> {
   className?: string;
   children: React.ReactNode;
 }

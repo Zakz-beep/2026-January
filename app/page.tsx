@@ -16,7 +16,7 @@ import { LayoutTextFlipDemo } from "@/components/Welcome";
 import { TimelineDemo } from "@/components/actionComponents/TimelinesComp";
 import { InfiniteMovingCardsDemo } from "@/components/CardComp";
 import { CommentFormDemo } from "@/components/FormComp";
-import { SpotlightNewDemo } from "@/components/Footer";
+
 import { Spotlight } from "@/components/ui/spotlight-new";
 
 
@@ -45,7 +45,7 @@ export default function NavbarDemo() {
         
         {/* DESKTOP VIEW */}
         <NavBody>
-          <NavbarLogo className="font-bold text-xl" />
+          <NavbarLogo/>
           <NavItems items={navItems} />
           <div className="flex items-center gap-3">
             <NavbarButton variant="primary" onClick={handleDownload}>
@@ -103,7 +103,7 @@ export default function NavbarDemo() {
       </Navbar>
 
       {/* --- MAIN CONTENT (Proporsional & Scalable) --- */}
-      <main className="flex-grow">
+      <main className="grow">
         <MainContent />
       </main>
 
@@ -121,14 +121,14 @@ const MainContent = () => {
       {/* SECTION 1: HERO */}
       {/* min-h-screen terkadang bermasalah di mobile (URL bar), 
           gunakan min-[100dvh] untuk hasil lebih presisi */}
-      <section id="hero" className="w-full min-h-[100dvh] flex flex-col justify-center items-center py-10">
+      <section id="hero" className="w-full min-h-dvh flex flex-col justify-center items-center py-10">
          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <LayoutTextFlipDemo />
          </div>
       </section>
 
       {/* SECTION 2: MY JOURNAL */}
-      <section id="features" className="w-full py-16 md:py-24 bg-neutral-50/5 dark:bg-white/[0.02]">
+      <section id="features" className="w-full py-16 md:py-24 bg-neutral-50/5 dark:bg-white/2">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">My Journal</h2>
            <p className="text-gray-500 max-w-2xl mx-auto mb-10 text-sm md:text-base">
@@ -152,7 +152,7 @@ const MainContent = () => {
        {/* SECTION 4: CONTACT FORM */}
        <section id="contact" className="w-full py-16 md:py-24">
          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-            <div className="bg-white/[0.03] p-6 md:p-10 rounded-3xl border border-white/10 shadow-xl">
+            <div className="bg-white/3 p-6 md:p-10 rounded-3xl border border-white/10 shadow-xl">
                <CommentFormDemo />
             </div>
          </div>
@@ -161,10 +161,10 @@ const MainContent = () => {
       {/* SECTION 5: FOOTER / THANKS */}
       {/* Gunakan relative untuk memposisikan Spotlight agar tidak merusak layout */}
       <section className="relative w-full py-24 md:py-40 flex items-center justify-center overflow-hidden">
-         <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+         <Spotlight  />
          
          <div className="container mx-auto px-4 text-center relative z-10">
-            <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold bg-clip-text text-transparent bg-linear-to-b from-neutral-50 to-neutral-400 leading-tight">
               Thanks for <br className="hidden md:block" /> Visiting My Website
             </h1>
          </div>
