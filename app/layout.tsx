@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Alviansyah Ecosystem",
-  description: "Modern and Futures",
+  description: "Modern and Futures ",
 };
 
 export default function RootLayout({
