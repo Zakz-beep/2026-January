@@ -20,7 +20,8 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
 
   const xRef = useRef(0);
   const yRef = useRef(0);
-  const frameRef = useRef<number>();
+  // Fix: Explicitly type as number | null with initial value
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const animate = () => {
@@ -38,7 +39,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     frameRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (frameRef.current) {
+      if (frameRef.current !== null) {
         cancelAnimationFrame(frameRef.current);
       }
     };
@@ -174,6 +175,24 @@ export default function Carousel({ slides }: CarouselProps) {
 
   const id = useId();
 
+  const slidesData = slides.length > 0 ? slides : [
+    {
+      title: "Slide 1",
+      button: "Learn More",
+      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80"
+    },
+    {
+      title: "Slide 2", 
+      button: "Explore",
+      src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80"
+    },
+    {
+      title: "Slide 3",
+      button: "Discover",
+      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80"
+    }
+  ];
+
   return (
     <div
       className="relative w-[70vmin] h-[70vmin] mx-auto"
@@ -182,10 +201,10 @@ export default function Carousel({ slides }: CarouselProps) {
       <ul
         className="absolute flex mx-[-4vmin] transition-transform duration-1000 ease-in-out"
         style={{
-          transform: `translateX(-${current * (100 / slides.length)}%)`,
+          transform: `translateX(-${current * (100 / slidesData.length)}%)`,
         }}
       >
-        {slides.map((slide, index) => (
+        {slidesData.map((slide, index) => (
           <Slide
             key={index}
             slide={slide}
