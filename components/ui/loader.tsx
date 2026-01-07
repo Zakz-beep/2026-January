@@ -1,180 +1,124 @@
 "use client";
-import { motion } from "motion/react";
+
+import { motion, Transition } from "framer-motion";
 import React from "react";
 
-export const LoaderOne = () => {
-  const transition = (x: number) => {
-    return {
-      duration: 1,
-      repeat: Infinity,
-      repeatType: "loop" as const,
-      delay: x * 0.2,
-      ease: "easeInOut",
-    };
-  };
+// Helper untuk transisi bouncing (Loader 1 & 2)
+const getBounceTransition = (delay: number): Transition => ({
+  duration: 0.6,
+  repeat: Infinity,
+  repeatType: "reverse",
+  delay: delay * 0.1,
+  ease: "easeInOut",
+});
+
+export const LoaderOne = ({ className = "" }: { className?: string }) => {
   return (
-    <div className="flex items-center gap-2">
-      <motion.div
-        initial={{
-          y: 0,
-        }}
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={transition(0)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
-      />
-      <motion.div
-        initial={{
-          y: 0,
-        }}
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={transition(1)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
-      />
-      <motion.div
-        initial={{
-          y: 0,
-        }}
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={transition(2)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
-      />
+    <div className={`flex items-center gap-2 ${className}`} aria-label="Loading">
+      {[0, 1, 2].map((index) => (
+        <motion.div
+          key={index}
+          animate={{ y: [0, -10, 0] }}
+          transition={getBounceTransition(index)}
+          className="h-3 w-3 rounded-full bg-gradient-to-b from-blue-500 to-blue-400 border border-blue-600 shadow-sm"
+        />
+      ))}
     </div>
   );
 };
 
-export const LoaderTwo = () => {
-  const transition = (x: number) => {
-    return {
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "loop" as const,
-      delay: x * 0.2,
-      ease: "easeInOut",
-    };
-  };
+export const LoaderTwo = ({ className = "" }: { className?: string }) => {
   return (
-    <div className="flex items-center">
-      <motion.div
-        transition={transition(0)}
-        initial={{
-          x: 0,
-        }}
-        animate={{
-          x: [0, 20, 0],
-        }}
-        className="h-4 w-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
-      />
-      <motion.div
-        initial={{
-          x: 0,
-        }}
-        animate={{
-          x: [0, 20, 0],
-        }}
-        transition={transition(0.4)}
-        className="h-4 w-4 -translate-x-2 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
-      />
-      <motion.div
-        initial={{
-          x: 0,
-        }}
-        animate={{
-          x: [0, 20, 0],
-        }}
-        transition={transition(0.8)}
-        className="h-4 w-4 -translate-x-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
-      />
+    <div className={`flex items-center gap-1 ${className}`} aria-label="Loading">
+      {[0, 1, 2].map((index) => (
+        <motion.div
+          key={index}
+          animate={{ x: [0, 15, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            delay: index * 0.2,
+            ease: "easeInOut",
+          }}
+          className="h-3 w-3 rounded-full bg-slate-300 dark:bg-slate-600 shadow-sm"
+        />
+      ))}
     </div>
   );
 };
 
-export const LoaderThree = () => {
+export const LoaderThree = ({ className = "" }: { className?: string }) => {
   return (
-    <motion.svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-20 w-20 stroke-neutral-500 [--fill-final:var(--color-yellow-300)] [--fill-initial:var(--color-neutral-50)] dark:stroke-neutral-100 dark:[--fill-final:var(--color-yellow-500)] dark:[--fill-initial:var(--color-neutral-800)]"
-    >
-      <motion.path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <motion.path
-        initial={{ pathLength: 0, fill: "var(--fill-initial)" }}
-        animate={{ pathLength: 1, fill: "var(--fill-final)" }}
-        transition={{
-          duration: 2,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"
-      />
-    </motion.svg>
+    <div className={className}>
+      <motion.svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-yellow-500"
+      >
+        <motion.path
+          initial={{ pathLength: 0, fill: "rgba(234, 179, 8, 0)" }}
+          animate={{ pathLength: 1, fill: "rgba(234, 179, 8, 0.2)" }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "linear",
+          }}
+          d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"
+        />
+      </motion.svg>
+    </div>
   );
 };
 
-export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
+export const LoaderFour = ({ text = "LOADING", className = "" }: { text?: string; className?: string }) => {
   return (
-    <div className="relative font-bold text-black [perspective:1000px] dark:text-white">
+    <div className={`relative font-black text-2xl tracking-tighter ${className} [perspective:1000px]`}>
+      {/* Layer Utama */}
       <motion.span
         animate={{
-          skew: [0, -40, 0],
-          scaleX: [1, 2, 1],
+          // GANTI 'skew' MENJADI 'skewX'
+          skewX: [0, -20, 0], 
+          scaleX: [1, 1.2, 1],
         }}
         transition={{
-          duration: 0.05,
+          duration: 0.1,
           repeat: Infinity,
           repeatType: "reverse",
-          repeatDelay: 2,
-          ease: "linear",
-          times: [0, 0.2, 0.5, 0.8, 1],
+          repeatDelay: 1,
         }}
-        className="relative z-20 inline-block"
+        className="relative z-20 inline-block text-slate-900 dark:text-white"
       >
         {text}
       </motion.span>
+      
+      {/* Glitch Green */}
       <motion.span
-        className="absolute inset-0 text-[#00e571]/50 blur-[0.5px] dark:text-[#00e571]"
+        className="absolute inset-0 text-green-500/70 blur-[0.4px]"
         animate={{
-          x: [-2, 4, -3, 1.5, -2],
-          y: [-2, 4, -3, 1.5, -2],
-          opacity: [0.3, 0.9, 0.4, 0.8, 0.3],
+          x: [-1, 2, -1],
+          opacity: [0.5, 1, 0.5],
         }}
-        transition={{
-          duration: 0.5,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear",
-          times: [0, 0.2, 0.5, 0.8, 1],
-        }}
+        transition={{ duration: 0.2, repeat: Infinity }}
       >
         {text}
       </motion.span>
+
+      {/* Glitch Purple */}
       <motion.span
-        className="absolute inset-0 text-[#8b00ff]/50 dark:text-[#8b00ff]"
+        className="absolute inset-0 text-purple-500/70"
         animate={{
-          x: [0, 1, -1.5, 1.5, -1, 0],
-          y: [0, -1, 1.5, -0.5, 0],
-          opacity: [0.4, 0.8, 0.3, 0.9, 0.4],
+          x: [1, -2, 1],
+          opacity: [0.5, 1, 0.5],
         }}
-        transition={{
-          duration: 0.8,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear",
-          times: [0, 0.3, 0.6, 0.8, 1],
-        }}
+        transition={{ duration: 0.3, repeat: Infinity }}
       >
         {text}
       </motion.span>
@@ -182,30 +126,22 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
   );
 };
 
-export const LoaderFive = ({ text }: { text: string }) => {
+export const LoaderFive = ({ text = "Please wait", className = "" }: { text?: string; className?: string }) => {
   return (
-    <div className="font-sans font-bold [--shadow-color:var(--color-neutral-500)] dark:[--shadow-color:var(--color-neutral-100)]">
+    <div className={`flex flex-wrap gap-[2px] font-bold uppercase tracking-widest text-sm ${className}`}>
       {text.split("").map((char, i) => (
         <motion.span
           key={i}
-          className="inline-block"
-          initial={{ scale: 1, opacity: 0.5 }}
+          initial={{ opacity: 0.3 }}
           animate={{
-            scale: [1, 1.1, 1],
-            textShadow: [
-              "0 0 0 var(--shadow-color)",
-              "0 0 1px var(--shadow-color)",
-              "0 0 0 var(--shadow-color)",
-            ],
-            opacity: [0.5, 1, 0.5],
+            opacity: [0.3, 1, 0.3],
+            scale: [1, 1.2, 1],
+            color: ["#64748b", "#3b82f6", "#64748b"]
           }}
           transition={{
-            duration: 0.5,
+            duration: 0.8,
             repeat: Infinity,
-            repeatType: "loop",
-            delay: i * 0.05,
-            ease: "easeInOut",
-            repeatDelay: 2,
+            delay: i * 0.1,
           }}
         >
           {char === " " ? "\u00A0" : char}
@@ -213,4 +149,4 @@ export const LoaderFive = ({ text }: { text: string }) => {
       ))}
     </div>
   );
-};
+}
